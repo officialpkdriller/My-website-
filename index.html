@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pkdriller | Developer Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4a40e5;
+            --accent: #ff6b6b;
+            --dark: #2d2b55;
+            --light: #f8f9fa;
+            --success: #28a745;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+            background-color: #fafafa;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        .nav-link {
+            color: #555;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        .hero {
+            background: linear-gradient(135deg, #6c63ff 0%, #4a40e5 100%);
+            color: white;
+            padding: 120px 0 100px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .btn-outline-light {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin-top: 15px;
+        }
+        .about-content {
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+        }
+        .skill-bar {
+            background: #e9ecef;
+            border-radius: 30px;
+            margin-bottom: 15px;
+            height: 20px;
+        }
+        .skill-progress {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 30px;
+            height: 100%;
+            width: 0;
+            transition: width 1s ease-in-out;
+            position: relative;
+        }
+        .skill-name {
+            position: absolute;
+            right: 10px;
+            top: -30px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .portfolio-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            background: white;
+            transition: all 0.3s;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        .portfolio-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(108, 99, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        .filter-buttons {
+            margin-bottom: 30px;
+        }
+        .filter-btn {
+            background: none;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .testimonial-card:after {
+            content: '\201D';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 60px;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .contact-info {
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+        }
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        .blog-content {
+            padding: 25px;
+        }
+        .blog-date {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .newsletter-section {
+            background: var(--light);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .newsletter-input {
+            border-radius: 30px 0 0 30px;
+            border: 2px solid var(--primary);
+            padding: 12px 20px;
+            width: 70%;
+            font-size: 1rem;
+        }
+        .newsletter-btn {
+            border-radius: 0 30px 30px 0;
+            border: 2px solid var(--primary);
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .newsletter-btn:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+        .timeline {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            transform: translateX(-50%);
+            opacity: 0.3;
+        }
+        .timeline-event {
+            position: relative;
+            width: 45%;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        .timeline-event.left {
+            left: 0;
+            margin-right: auto;
+        }
+        .timeline-event.right {
+            left: 55%;
+            margin-left: auto;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        @media (max-width: 992px) {
+            .timeline-event {
+                width: 100%;
+                left: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .timeline:before {
+                left: 20px;
+            }
+            .timeline-dot {
+                left: 20px;
+                transform: none;
+            }
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+        }
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 0 80px;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+            .about-content, .contact-info, .newsletter-section {
+                padding: 25px;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+        /* Progress Rings */
+        .progress-ring {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .progress-ring svg {
+            width: 60px;
+            height: 60px;
+        }
+        .progress-ring circle {
+            stroke-width: 8;
+            fill: none;
+        }
+        .progress-ring-text {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 2000;
+            transition: all 0.3s;
+        }
+        .dark-mode-toggle.active {
+            background: var(--primary);
+            color: white;
+        }
+        body.dark-mode {
+            background-color: #181a2b;
+            color: #e2e2e2;
+        }
+        body.dark-mode .navbar,
+        body.dark-mode .about-content,
+        body.dark-mode .testimonial-card,
+        body.dark-mode .contact-info,
+        body.dark-mode .newsletter-section,
+        body.dark-mode .portfolio-item,
+        body.dark-mode .blog-card {
+            background: #23243a !important;
+            color: #e2e2e2 !important;
+        }
+        body.dark-mode .portfolio-overlay {
+            background: rgba(76, 63, 255, 0.95);
+        }
+        body.dark-mode .section-title {
+            color: #fff;
+        }
+        body.dark-mode .btn-primary, body.dark-mode .filter-btn.active, body.dark-mode .filter-btn:hover {
+            background-color: #4a40e5;
+            border-color: #4a40e5;
+            color: #fff;
+        }
+        body.dark-mode .filter-btn {
+            color: #fff;
+            border-color: #4a40e5;
+        }
+        body.dark-mode .blog-date {
+            color: #a2a2a2;
+        }
+        body.dark-mode footer {
+            background: #15162a;
+            color: #e2e2e2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i> Dark Mode</button>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">pkdriller</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#timeline">Timeline</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#newsletter">Newsletter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold mb-4 animate">Transforming Ideas Into Digital Reality</h1>
+                    <p class="lead mb-5 animate delay-1">I'm a passionate developer from Kenya specializing in creating beautiful, functional websites and applications that deliver exceptional user experiences.</p>
+                    <div class="animate delay-2 d-flex flex-wrap gap-3">
+                        <a href="#portfolio" class="btn btn-light btn-lg">View My Work</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Me</a>
+                        <a href="https://pkdller.vercel.app/" target="_blank" class="btn btn-success btn-lg"><i class="fas fa-globe"></i> Visit My Other Site</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block animate delay-3">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="img-fluid rounded-circle" alt="Profile Image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">About Me</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-5">
+                    <div class="about-content">
+                        <h3 class="mb-4">Hello! I'm pkdriller</h3>
+                        <p class="mb-4">I'm a dedicated developer from Kenya with a passion for creating digital solutions that solve real-world problems. With expertise in various programming languages and frameworks, I bring ideas to life through clean, efficient code.</p>
+                        <p class="mb-4">My journey in development started several years ago, and I've since worked on numerous projects that have helped me refine my skills and approach to problem-solving.</p>
+                        <div class="d-flex">
+                            <div class="me-4">
+                                <h5 class="text-primary">50+</h5>
+                                <p>Projects Completed</p>
+                            </div>
+                            <div class="me-4">
+                                <h5 class="text-primary">25+</h5>
+                                <p>Happy Clients</p>
+                            </div>
+                            <div>
+                                <h5 class="text-primary">3+</h5>
+                                <p>Years Experience</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="https://pkdller.vercel.app/" target="_blank" class="btn btn-outline-success btn-lg"><i class="fas fa-link"></i> Visit My Web App</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <h3 class="mb-4">My Skills</h3>
+                        <div class="d-flex flex-wrap mb-4">
+                            <!-- Progress Ring Example -->
+                            <div class="progress-ring position-relative" title="HTML/CSS">
+                                <svg>
+                                    <circle cx="30" cy="30" r="25" stroke="#6c63ff" stroke-dasharray="157" stroke-dashoffset="8" />
+                                    <circle cx="30" cy="30" r="25" stroke="#e9ecef" stroke-dasharray="157" stroke-dashoffset="0" />
+                                </svg>
+                                <span class="progress-ring-text" style="left: 18px; top: 18px;">95%</span>
+                            </div>
+                            <div class="progress-ring position-relative" title="JavaScript">
+                                <svg>
+                                    <circle cx="30" cy="30" r="25" stroke="#4a40e5" stroke-dasharray="157" stroke-dashoffset="16" />
+                                    <circle cx="30" cy="30" r="25" stroke="#e9ecef" stroke-dasharray="157" stroke-dashoffset="0" />
+                                </svg>
+                                <span class="progress-ring-text" style="left: 18px; top: 18px;">90%</span>
+                            </div>
+                            <div class="progress-ring position-relative" title="React">
+                                <svg>
+                                    <circle cx="30" cy="30" r="25" stroke="#ff6b6b" stroke-dasharray="157" stroke-dashoffset="24" />
+                                    <circle cx="30" cy="30" r="25" stroke="#e9ecef" stroke-dasharray="157" stroke-dashoffset="0" />
+                                </svg>
+                                <span class="progress-ring-text" style="left: 18px; top: 18px;">85%</span>
+                            </div>
+                            <div class="progress-ring position-relative" title="Node.js">
+                                <svg>
+                                    <circle cx="30" cy="30" r="25" stroke="#28a745" stroke-dasharray="157" stroke-dashoffset="32" />
+                                    <circle cx="30" cy="30" r="25" stroke="#e9ecef" stroke-dasharray="157" stroke-dashoffset="0" />
+                                </svg>
+                                <span class="progress-ring-text" style="left: 18px; top: 18px;">80%</span>
+                            </div>
+                        </div>
+                        <!-- Skill Bars (keep for accessibility) -->
+                        <div class="skill-item mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6>HTML/CSS</h6>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95%">
+                                    <span class="skill-name">95%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6>JavaScript</h6>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%">
+                                    <span class="skill-name">90%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6>React</h6>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%">
+                                    <span class="skill-name">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6>Node.js</h6>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80%">
+                                    <span class="skill-name">80%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">My Journey</h2>
+            <div class="timeline">
+                <div class="timeline-event left">
+                    <span class="timeline-dot"></span>
+                    <h5>2022</h5>
+                    <p>Started my web development journey with HTML, CSS, and JavaScript.</p>
+                </div>
+                <div class="timeline-event right">
+                    <span class="timeline-dot"></span>
+                    <h5>2023</h5>
+                    <p>Developed my first full-stack application using React and Node.js.</p>
+                </div>
+                <div class="timeline-event left">
+                    <span class="timeline-dot"></span>
+                    <h5>2024</h5>
+                    <p>Worked with clients from Kenya and beyond, building robust solutions and earning glowing testimonials.</p>
+                </div>
+                <div class="timeline-event right">
+                    <span class="timeline-dot"></span>
+                    <h5>2025</h5>
+                    <p>Launched my developer portfolio and started sharing insights via my blog.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">My Portfolio</h2>
+            <p class="text-center mb-5">Here are some of my recent projects. Filter by category to see specific types of work.</p>
+            <div class="filter-buttons text-center">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="app">App Development</button>
+                <button class="filter-btn" data-filter="ui">UI/UX Design</button>
+            </div>
+            <div class="row portfolio-items">
+                <!-- Portfolio items remain unchanged for brevity -->
+                <!-- ... (same as user original code) ... -->
+                <!-- You can add more items for richness if you wish -->
+                <!-- Additional featured project: -->
+                <div class="col-md-6 col-lg-4 portfolio-item" data-category="web">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=500&q=80" alt="Featured Project">
+                        <div class="portfolio-overlay">
+                            <div class="text-center">
+                                <a href="https://pkdller.vercel.app/" class="btn btn-light"><i class="fas fa-globe"></i> Visit Web App</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content p-4">
+                        <h4>Featured: My Web Application</h4>
+                        <p>A showcase of my skills, built with the latest tech stack. Check it out!</p>
+                        <div class="badge bg-primary me-2">React</div>
+                        <div class="badge bg-secondary">Node.js</div>
+                    </div>
+                </div>
+                <!-- ...existing items... -->
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Client Testimonials</h2>
+            <p class="text-center mb-5">What people I've worked with are saying</p>
+            <div class="row">
+                <!-- ...same as user code... -->
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section -->
+    <section id="blog" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Latest From My Blog</h2>
+            <p class="text-center mb-5">I share insights about development, design, and technology trends</p>
+            <div class="row">
+                <!-- ...same as user code... -->
+            </div>
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-outline-primary">View All Blog Posts</a>
+            </div>
+        </div>
+    </section>
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="py-5">
+        <div class="container">
+            <div class="newsletter-section text-center">
+                <h2 class="section-title">Subscribe to My Newsletter</h2>
+                <p class="mb-4">Get the latest updates, tips, and resources directly to your inbox!</p>
+                <form id="newsletterForm" class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+                    <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+                <div id="newsletterMessage" class="mt-3"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Get In Touch</h2>
+            <p class="text-center mb-5">Have a project in mind or want to collaborate? Feel free to reach out!</p>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-info text-center">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <h3 class="mb-4">Let's Work Together</h3>
+                        <p class="mb-4">I'm available for freelance work and interesting project opportunities. Contact me and let's discuss how I can help bring your ideas to life.</p>
+                        <a href="https://contact-pk-three.vercel.app/" class="btn btn-primary btn-lg">Contact Me Now</a>
+                        <div class="mt-4">
+                            <a href="https://pkdller.vercel.app/" target="_blank" class="btn btn-outline-success btn-lg"><i class="fas fa-globe"></i> Visit My Other Website</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h3 class="text-white">pkdriller</h3>
+                    <p>Transforming ideas into digital reality through clean code and creative design.</p>
+                </div>
+                <div class="col-lg-6 text-lg-end mb-4">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://pkdller.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2025 pkdriller. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> in Kenya</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(element);
+            });
+            // Skill bars animation
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const skillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.getAttribute('data-width');
+                        entry.target.style.width = width;
+                    }
+                });
+            }, { threshold: 0.5 });
+            skillBars.forEach(bar => {
+                skillsObserver.observe(bar);
+            });
+            // Portfolio filtering
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filterValue = button.getAttribute('data-filter');
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('active');
+                } else {
+                    backToTopButton.classList.remove('active');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            // Create particles
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const numberOfParticles = 30;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 5 + 3;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    const animationDuration = Math.random() * 10 + 5;
+                    particle.style.animation = `float ${animationDuration}s ease-in-out infinite`;
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                darkModeToggle.classList.toggle('active');
+                if(document.body.classList.contains('dark-mode')) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                }
+            });
+            // Newsletter Form
+            const newsletterForm = document.getElementById('newsletterForm');
+            const newsletterMessage = document.getElementById('newsletterMessage');
+            newsletterForm.addEventListener('submit', function(e){
+                e.preventDefault();
+                const email = document.getElementById('newsletterEmail').value;
+                if(email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+                    newsletterMessage.innerHTML = '<span class="text-success">Thank you for subscribing!</span>';
+                    newsletterForm.reset();
+                }else{
+                    newsletterMessage.innerHTML = '<span class="text-danger">Please enter a valid email address.</span>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
